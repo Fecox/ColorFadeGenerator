@@ -1,0 +1,100 @@
+picotron cartridge // www.picotron.net
+version 2
+
+:: gfx/
+:: gfx/0.gfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
+Mi0xNyAxNzo1NjoxNSIscmV2aXNpb249MjMxXV1sejQA2wAAAG0xAADzIXtbMF09e2JtcD1weHUA
+QyAQEATwVgcQB8AX0BfABxAH8FYsZmxhZ3M9MCxwYW5feAgAynk9MCx6b29tPTh9LD4A8RQX0IcQ
+BzAHAAdAZwAHEAcgRwAHACcQBwCHABcglwAHAAcApwYA8AUXAGcQBxAXIFcAVwB3ABcARyAHECgA
+AC4AUDcQFwA3JAAAEAAQQCYAfydQVwAXwBeMABwv8PAxAP------------------------------
+---------------------------------6ZQbT04fX0=
+:: gfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
+Mi0xNyAxNzo1NjoxNiJdXQ==
+:: map/
+:: map/0.map
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
+Mi0xNyAxNzo1NjoxNSIscmV2aXNpb249MjU2XV1sejQAdQAAAGQQAADwCHt7Ym1wPXVzZXJkYXRh
+KCJpMTYiLDMyAwAvIjABAP--------------------vxDSIpLGhpZGRlbj1mYWxzZSxwYW5feD0t
+MTkuNzUNAPIDeT0tMTA2LjUsdGlsZV9oPTE2CgAQdwoAoHpvb209MC41fX0=
+:: map/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
+Mi0xNyAxNzo1NjoxNiJdXQ==
+:: sfx/
+:: sfx/0.sfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
+Mi0xNyAxNzo1NjoxNSIscmV2aXNpb249MjI1XV1sejQAoAAAAAsKAAD-MHB4dQADKAAABAAED0AQ
+Ag4AAaABIAKgDgAPEAAN8MoBAgNADw_QBAUGB0AMkAgJCgtADJAPDA8NDw4MQAzw-wEA6-8nqgEQ
+Bg8gEAEgASAB8AACEAIOEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYOMAD-----
+-70f-wEArM-ID0AADxBA--_w8P8BAP-qUP----8p
+:: sfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
+Mi0xNyAxNzo1NjoxNiJdXQ==
+:: draws.lua
+--[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-17 17:56:15",revision=334]]
+
+function draw_palette()
+	cls(0)
+	--15,8 center
+--	spr(1, 15*tilesize,8*tilesize)
+--	rectfill2(0, 0, 10, 10, 0)
+--	rectfill2(10, 0, 10, 10, 9)
+	draw_pallete()
+	--debug
+	foreach(deug, print)
+end
+
+function draw_pallete()
+	local start_pos = { x = 0, y = 0}
+	local size = 32
+	for i=0,32 do
+		rectfill2(start_pos.x + size*(i-4*flr(i*0.25)), start_pos.y + size*flr(i*0.25), size, size, i)
+	end
+end
+
+-- simple debug(msg) msg = string,number,nil,boolean E.g. debug("hola") print hola
+-- multiple debug({string, nil, number, bolean }) E.g. debug({"hola", true, 24}) print holatrue24
+function debug(msg) 
+	local max_lenght = 25
+	if #deug >= max_lenght then deug = {} end
+	
+	if type(msg) == "table" then
+		local message = ""
+		for i=1,#msg == 1 and 2 or #msg do
+			message = message..tostr(msg[i])
+		end
+		add(deug, message)
+	else
+		add(deug, tostr(msg))	
+	end
+end
+
+function rectfill2(_x,_y,_w,_h,_c)
+	rectfill(_x,_y,_x+max(_w-1,0),_y+max(_h-1,0),_c)
+end
+:: main.lua
+--[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-17 17:56:15",revision=262]]
+include "draws.lua"
+
+function _init()
+	tilesize = 16
+	deug = {}
+	draw_pallete()
+end
+
+function _update()
+
+end
+
+function _draw()
+	draw_palette()
+end
+:: .info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
+Mi0xNyAxNzo1NjoxNiIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
+IzYiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImRyYXdzLmx1YSMxMCIsd29ya3NwYWNl
+X2luZGV4PTF9LHtsb2NhdGlvbj0iZ2Z4LzAuZ2Z4Iix3b3Jrc3BhY2VfaW5kZXg9Mn0se2xvY2F0
+aW9uPSJtYXAvMC5tYXAiLHdvcmtzcGFjZV9pbmRleD0zfSx7bG9jYXRpb249InNmeC8wLnNmeCIs
+d29ya3NwYWNlX2luZGV4PTR9fV1d
+:: [eoc]
