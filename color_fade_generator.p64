@@ -4,52 +4,91 @@ version 2
 :: gfx/
 :: gfx/0.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xNyAxNzo1NjoxNSIscmV2aXNpb249MjMxXV1sejQA2wAAAG0xAADzIXtbMF09e2JtcD1weHUA
+Mi0xOCAxNzo1OTozMyIscmV2aXNpb249Mzk3XV1sejQA2wAAAG0xAADzIXtbMF09e2JtcD1weHUA
 QyAQEATwVgcQB8AX0BfABxAH8FYsZmxhZ3M9MCxwYW5feAgAynk9MCx6b29tPTh9LD4A8RQX0IcQ
 BzAHAAdAZwAHEAcgRwAHACcQBwCHABcglwAHAAcApwYA8AUXAGcQBxAXIFcAVwB3ABcARyAHECgA
 AC4AUDcQFwA3JAAAEAAQQCYAfydQVwAXwBeMABwv8PAxAP------------------------------
 ---------------------------------6ZQbT04fX0=
 :: gfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xNyAxNzo1NjoxNiJdXQ==
+Mi0xOCAxNzo1OTozMyJdXQ==
 :: map/
 :: map/0.map
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xNyAxNzo1NjoxNSIscmV2aXNpb249MjU2XV1sejQAdQAAAGQQAADwCHt7Ym1wPXVzZXJkYXRh
+Mi0xOCAxNzo1OTozMyIscmV2aXNpb249NDE1XV1sejQAdQAAAGQQAADwCHt7Ym1wPXVzZXJkYXRh
 KCJpMTYiLDMyAwAvIjABAP--------------------vxDSIpLGhpZGRlbj1mYWxzZSxwYW5feD0t
 MTkuNzUNAPIDeT0tMTA2LjUsdGlsZV9oPTE2CgAQdwoAoHpvb209MC41fX0=
 :: map/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xNyAxNzo1NjoxNiJdXQ==
+Mi0xOCAxNzo1OTozMyJdXQ==
 :: sfx/
 :: sfx/0.sfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xNyAxNzo1NjoxNSIscmV2aXNpb249MjI1XV1sejQAoAAAAAsKAAD-MHB4dQADKAAABAAED0AQ
+Mi0xOCAxNzo1OTozMyIscmV2aXNpb249MzgzXV1sejQAoAAAAAsKAAD-MHB4dQADKAAABAAED0AQ
 Ag4AAaABIAKgDgAPEAAN8MoBAgNADw_QBAUGB0AMkAgJCgtADJAPDA8NDw4MQAzw-wEA6-8nqgEQ
 Bg8gEAEgASAB8AACEAIOEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYOMAD-----
 -70f-wEArM-ID0AADxBA--_w8P8BAP-qUP----8p
 :: sfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xNyAxNzo1NjoxNiJdXQ==
+Mi0xOCAxNzo1OTozMyJdXQ==
 :: draws.lua
---[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-17 17:56:15",revision=334]]
-
+--[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-18 17:59:33",revision=561]]
 function draw_palette()
 	cls(0)
-	--15,8 center
---	spr(1, 15*tilesize,8*tilesize)
---	rectfill2(0, 0, 10, 10, 0)
---	rectfill2(10, 0, 10, 10, 9)
 	draw_pallete()
+	draw_fade_palette()
+
 	--debug
 	foreach(deug, print)
 end
 
-function draw_pallete()
-	local start_pos = { x = 0, y = 0}
-	local size = 32
-	for i=0,32 do
-		rectfill2(start_pos.x + size*(i-4*flr(i*0.25)), start_pos.y + size*flr(i*0.25), size, size, i)
+function doFade() -- placehodler
+	fade = buildFadeToSingleColor(0, 16)--0 is fade to black, add setTargetColor \\ 16 is placehodler, try more and find the best
+end
+
+function buildFadeToSingleColor(target_color, steps)
+	local fade = {}
+	
+	for i=0,31 do
+		local pallete = {}
+		
+		for i=1,steps do -- si hay problemas ver estas operaciones
+			local r = (palette_rgb[target_color][0] - palette_rgb[c][0]) * i / steps + palette_rgb[c][0]
+			local g = (palette_rgb[target_color][1] - palette_rgb[c][1]) * i / steps + palette_rgb[c][1]
+			local b = (palette_rgb[target_color][2] - palette_rgb[c][2]) * i / steps + palette_rgb[c][2]
+			
+			add(pallete, findClosestColor(r, g, b))
+		end
+		
+		add_table(fade, pallete) -- si hay problemas chequear esto
+	end
+end
+
+function findClosestColor(r, g, b)
+	local error = -1 -- smalles error
+	local c = -1 -- closest color
+	local color_range = 32 -- pallete lenght
+	
+	for i=1,color_range do
+		local d0, d1, d2, distance
+		
+		d0 = palette_rgb[i][0] - r
+		d1 = palette_rgb[i][0] - g	
+		d2 = palette_rgb[i][0] - b
+		distance = math.sqrt(d0 * d0 + d1 * d1 + d2 * d2)
+		
+		if error == -1 or e > distance then
+			error = distance
+			c = i
+		end
+	end
+	
+	return c
+end
+
+function add_table(table, table_to_merge)
+	for i=1,#table_to_merge do
+		add(table, table_to_merge[i])
 	end
 end
 
@@ -73,28 +112,413 @@ end
 function rectfill2(_x,_y,_w,_h,_c)
 	rectfill(_x,_y,_x+max(_w-1,0),_y+max(_h-1,0),_c)
 end
+:: javascript.lua
+--[[pod_format="raw",created="2024-12-18 16:58:16",modified="2024-12-18 17:59:33",revision=73]]
+
+
+    var previewFrame = 0;
+    var fadeTargetColor = 0;
+    var colorSpace = 0; // 0=RGB, 1=HSL
+    var sourcePalette = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    var pickingColorForSourcePalette = false;
+    var selectedSourcePaletteColor = 0;
+
+    var modes = [
+      { name: "RGB", w0: 'R', w1: 'G', w2: 'B' },
+      { name: "HSV", w0: 'H', w1: 'V', w2: null }
+    ]
+
+    var fadeCodeStub = '<span class="token-pink">function</span> fade<span class="token-white">(</span>i<span class="token-white">)</span><br/> <span class="token-pink">for</span> c<span class="token-white">=</span><span class="token-blue">0</span><span class="token-white">,</span><span class="token-blue">15</span> <span class="token-pink">do<br/>  if</span> <span class="token-green">flr</span><span class="token-white">(</span>i<span class="token-white">+</span><span class="token-blue">1</span><span class="token-white">)&gt;=</span><span class="token-blue">%SIZE%</span> <span class="token-pink">then</span>'
+      + '<br/>   <span class="token-green">pal</span><span class="token-white">(</span>c<span class="token-white">,</span><span class="token-blue">%TARGET%</span><span class="token-white">)</span><br/>  <span class="token-pink">else</span><br/>   <span class="token-green">pal</span><span class="token-white">(</span>c,fadetable<span class="token-white">[</span>c<span class="token-white">+</span><span class="token-blue">1</span><span class="token-white">][</span><span class="token-green">flr</span><span class="token-white">(</span>i<span class="token-white">+</span><span class="token-blue">1</span><span class="token-white">)])</span><br/>  <span class="token-pink">end<br/> end<br/>end</span><br/>';
+
+    var pico8Colors = [
+      [0, 0, 0],
+      [29, 43, 83],
+      [126, 37, 83],
+      [0, 135, 81],
+      [171, 82, 54],
+      [95, 87, 79],
+      [194, 195, 199],
+      [255, 241, 232],
+      [255, 0, 77],
+      [255, 163, 0],
+      [255, 236, 39],
+      [0, 228, 54],
+      [41, 173, 255],
+      [131, 118, 156],
+      [255, 119, 168],
+      [255, 204, 170],
+      // The secret 128+ palette
+      [0x29, 0x18, 0x14],
+      [0x11, 0x1d, 0x35],
+      [0x42, 0x21, 0x36],
+      [0x12, 0x53, 0x59],
+      [0x74, 0x2f, 0x29],
+      [0x49, 0x33, 0x3b],
+      [0xa2, 0x88, 0x79],
+      [0xf3, 0xef, 0x7d],
+      [0xbe, 0x12, 0x50],
+      [0xff, 0x6c, 0x24],
+      [0xa8, 0xe7, 0x2e],
+      [0x00, 0xb5, 0x43],
+      [0x06, 0x5a, 0xb5],
+      [0x75, 0x46, 0x65],
+      [0xff, 0x6e, 0x59],
+      [0xff, 0x9d, 0x81],
+    ];
+
+    // Found the following RGB to HSL function from
+    // http://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
+
+    function rgbToHsv(r, g, b) {
+      r = r / 255, g = g / 255, b = b / 255;
+      var max = Math.max(r, g, b), min = Math.min(r, g, b);
+      var h, s, v = max;
+
+      var d = max - min;
+      s = max == 0 ? 0 : d / max;
+
+      if (max == min) {
+        h = 0; // achromatic
+      } else {
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+      }
+
+      return [h, s, v];
+    }
+
+    function findClosestColor(r, g, b, w0, w1, w2, mode, useHiddenColors) {
+      var e = -1; // smallest error
+      var c = -1; // closest color
+      var colorRange = useHiddenColors ? 32 : 16;
+
+      for (var i = 0; i < colorRange; ++i) {
+        // calculate distance between wanted color
+        // and pico-8 color in RGB/HSL color space
+
+        var d0, d1, d2, distance;
+
+        if (mode == 0) {
+          d0 = (pico8Colors[i][0] - r) * w0;
+          d1 = (pico8Colors[i][1] - g) * w1;
+          d2 = (pico8Colors[i][2] - b) * w2;
+
+          distance = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2)
+        }
+        else {
+          var ca = rgbToHsv(pico8Colors[i][0], pico8Colors[i][1], pico8Colors[i][2]);
+          var cb = rgbToHsv(r, g, b);
+
+          d0 = (Math.cos(ca[0] * Math.PI * 2) * ca[1] - Math.cos(cb[0] * Math.PI * 2) * cb[1]) * w0;
+          d1 = (Math.sin(ca[0] * Math.PI * 2) * ca[1] - Math.sin(cb[0] * Math.PI * 2) * cb[1]) * w0;
+          d2 = (ca[2] - cb[2]) * w1;
+
+          distance = d0 * d0 + d1 * d1 + d2 * d2;
+        }
+
+        if (e == -1 || e > distance) {
+          e = distance;
+          c = i;
+        }
+      }
+
+      return c;
+    }
+
+    function buildFadeToSingleColor(targetColor, steps, mode, w0, w1, w2, useHiddenColors) {
+      var fade = []
+
+      for (var c = 0; c < 16; ++c) {
+        var palette = [];
+        const sc = sourcePalette[c];
+
+        for (var i = 1; i < steps; ++i) {
+          var r = (pico8Colors[targetColor][0] - pico8Colors[sc][0]) * i / steps + pico8Colors[sc][0];
+          var g = (pico8Colors[targetColor][1] - pico8Colors[sc][1]) * i / steps + pico8Colors[sc][1];
+          var b = (pico8Colors[targetColor][2] - pico8Colors[sc][2]) * i / steps + pico8Colors[sc][2];
+
+          palette.push(findClosestColor(r, g, b, w0, w1, w2, mode, useHiddenColors));
+        }
+
+        fade.push(palette);
+      }
+
+      return fade;
+    }
+
+    function buildFadeToPalette(targetPalette, steps, mode, w0, w1, w2, useHiddenColors) {
+      var fade = []
+
+      for (var c = 0; c < 16; ++c) {
+        var palette = []
+
+        for (var i = 1; i < steps; ++i) {
+          var r = (pico8Colors[targetPalette[c]][0] - pico8Colors[c][0]) * i / steps + pico8Colors[c][0];
+          var g = (pico8Colors[targetPalette[c]][1] - pico8Colors[c][1]) * i / steps + pico8Colors[c][1];
+          var b = (pico8Colors[targetPalette[c]][2] - pico8Colors[c][2]) * i / steps + pico8Colors[c][2];
+
+          palette.push(findClosestColor(r, g, b, w0, w1, w2, mode, useHiddenColors));
+        }
+
+        fade.push(palette);
+      }
+
+      return fade;
+    }
+
+    function updatePalette(id, palette) {
+      for (var c = 0; c < 16; ++c)
+        $('#' + id + ' > *[data-index="' + c + '"]').css('border-color', 'rgb(' + pico8Colors[palette[c]][0] + "," + pico8Colors[palette[c]][1] + "," + pico8Colors[palette[c]][2] + ')');
+    }
+
+    function createPalette(id, size) {
+      $('#' + id).html("");
+      for (var c = 0; c < size; ++c) {
+        var col = 'rgb(255, 241, 232)';
+
+        if (c % 16 >= 4) {
+          // 0..3 and 16..19 are considered "dark" so the dot needs to be white for those and black for 4..15 etc.
+          col = 'rgb(0,0,0)';
+        }
+
+        $('#' + id).append("<div title=\"" + c + "\" data-index=\"" + c + "\" style=\"background:" + col + ";border-color:rgb(" + pico8Colors[c][0] + "," + pico8Colors[c][1] + "," + pico8Colors[c][2] + ")\"></div>");
+      }
+    }
+
+    function createSourcePalette(id) {
+      $('#' + id).html("");
+      for (var c = 0; c < 16; ++c) {
+        var col = 'rgb(255, 241, 232)';
+
+        if (c % 16 >= 4) {
+          // 0..3 and 16..19 are considered "dark" so the dot needs to be white for those and black for 4..15 etc.
+          col = 'rgb(0,0,0)';
+        }
+
+        var sc = sourcePalette[c];
+
+        $('#' + id).append("<div title=\"" + c + "\" data-index=\"" + c + "\" style=\"background:" + col + ";border-color:rgb(" +
+          pico8Colors[sc][0] + "," + pico8Colors[sc][1] + "," + pico8Colors[sc][2] + ")\"></div>");
+      }
+
+      $('#' + id + ' > *').click(function (e) {
+        $('#' + id + ' > *').removeClass('selected');
+        $(e.target).addClass('selected');
+        pickingColorForSourcePalette = true;
+        selectedSourcePaletteColor = parseInt($(e.target).data('index'), 10);
+        update();
+        setInfo('Select new color from target colors');
+      });
+    }
+
+    function update() {
+      var useHiddenColors = $('#use-hidden-colors').prop('checked');
+      var steps = parseInt($('#steps').val(), 10);
+      var mode = parseInt($('#color-space').val(), 10);
+      var w0 = parseInt($('#w0').val(), 10);
+      var w1 = parseInt($('#w1').val(), 10);
+      var w2 = parseInt($('#w2').val(), 10);
+      var fade = buildFadeToSingleColor(g, steps, mode, w0, w1, w2, useHiddenColors);
+      var src = '<span class="token-pink">local</span> fadeTable<span class="token-white">={</span><br/>';
+      var data = []
+
+      for (var f in fade) {
+        // Note: We need to make the 16..31 color index range go 128..143 as that's how it is mapped in PICO-8
+        data.push(' <span class="token-white">{</span><span class="token-blue">' +
+          fade[f].map(c => c >= 16 ? c - 16 + 128 : c)
+            .join('</span><span class="token-white">,</span><span class="token-blue">') +
+          '</span><span class="token-white">}</span>'
+        );
+      }
+
+      src += data.join('<span class="token-white">,</span><br/>') + '<br/><span class="token-white">}</span><br/><br/>' + fadeCodeStub.replace('%SIZE%', steps).replace('%TARGET%', fadeTargetColor);
+
+      $('#source-code').html(src);
+
+      updatePreview();
+    }
+
+    function updateWeightLabels() {
+      var mode = $('#color-space').val();
+
+      if (modes[mode].w0) {
+        $('#w0-el').show();
+        $('#w0-label').text(modes[mode].w0);
+      }
+      else
+        $('#w0-el').hide();
+
+      if (modes[mode].w1) {
+        $('#w1-el').show();
+        $('#w1-label').text(modes[mode].w1);
+      }
+      else
+        $('#w1-el').hide();
+
+      if (modes[mode].w2) {
+        $('#w2-el').show();
+        $('#w2-label').text(modes[mode].w2);
+      }
+      else
+        $('#w2-el').hide();
+    }
+
+    function updatePreview() {
+      // If we use onChange() it would only update
+      // when releasing the mouse button so we poll
+      // every 50 ms.
+
+      setTimeout(updatePreview, 50);
+
+      var useHiddenColors = $('#use-hidden-colors').prop('checked');
+      var steps = parseInt($('#steps').val(), 10);
+      var mode = parseInt($('#color-space').val(), 10);
+      var w0 = parseInt($('#w0').val(), 10);
+      var w1 = parseInt($('#w1').val(), 10);
+      var w2 = parseInt($('#w2').val(), 10);
+
+
+      var f = parseInt($('#fade-slider').val(), 10);
+
+      if (f > 0 && f < steps) {
+        var pal = buildFadeToSingleColor(fadeTargetColor, steps, mode, w0, w1, w2, useHiddenColors);
+        var tempPalette = []
+
+        for (var c = 0; c < 16; ++c)
+          tempPalette.push(pal[c][f - 1]);
+
+        updatePalette('preview-palette', tempPalette);
+      }
+      else if (f == steps) {
+        var pal = [];
+        for (var c = 0; c < 16; ++c)
+          pal.push(fadeTargetColor);
+
+        updatePalette('preview-palette', pal);
+      }
+      else {
+        var pal = [];
+        for (var c = 0; c < 16; ++c)
+          pal.push(sourcePalette[c]);
+
+        updatePalette('preview-palette', pal);
+      }
+    }
+
+    function updateSlider() {
+      $('#fade-slider').attr('max', parseInt($('#steps').val(), 10));
+    }
+
+    function setTargetColor(e) {
+      $('#target-color *').removeClass('selected');
+      fadeTargetColor = $(e).addClass('selected').data('index');
+    }
+
+    function setSourcePaletteColor(e) {
+      sourcePalette[selectedSourcePaletteColor] = $(e).data('index');
+      pickingColorForSourcePalette = false;
+      createSourcePalette('source-palette');
+      setInfo('');
+    }
+
+    function setupTargetColorEvents() {
+      $('#target-color > *').click(function (e) {
+        if (pickingColorForSourcePalette) {
+          setSourcePaletteColor(e.target);
+        } else {
+          setTargetColor(e.target);
+        }
+        update();
+      });
+    }
+
+    function setInfo(text) {
+      $('#info-line').text(text);
+    }
+
+    $(function () {
+      setInfo('Start editing source palette by clicking on color');
+      createSourcePalette('source-palette');
+      createPalette('target-color', 32);
+      createPalette('preview-palette', 16);
+      setupTargetColorEvents();
+      $('#steps').change(function (e) {
+        updateSlider();
+        update();
+      });
+      $('#color-space').change(function (e) {
+        updateWeightLabels();
+        update();
+      });
+      $('#use-hidden-colors').change(function (e) {
+        var useHiddenColors = $('#use-hidden-colors').prop('checked');
+        if (!useHiddenColors) {
+          // Limit target color to 0..15 if not using the hidden colors
+          fadeTargetColor %= 16;
+        }
+        createPalette('target-color', useHiddenColors ? 32 : 16);
+        setupTargetColorEvents();
+        setTargetColor($('#target-color *[data-index="' + fadeTargetColor + '"]'));
+        update();
+      });
+
+      setTargetColor($('#target-color *[data-index="0"]'));
+      updateSlider();
+      updatePreview();
+      updateWeightLabels();
+      update();
+    });
 :: main.lua
---[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-17 17:56:15",revision=262]]
+--[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-18 17:59:33",revision=442]]
 include "draws.lua"
+include "ui.lua"
 
 function _init()
-	tilesize = 16
+	palette_rgb = {}
+	fade = {}
+	colors_size = 32
 	deug = {}
-	draw_pallete()
 end
 
-function _update()
+pallette_rgb = {
+{0, 0, 0},
+{29, 43, 83},
+{126, 37, 83},
+}
 
+function _update()
 end
 
 function _draw()
 	draw_palette()
 end
+:: ui.lua
+--[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-18 17:59:33",revision=140]]
+function draw_pallete(start_pos)
+	start_pos = start_pos or { x = 0, y = 0}
+	for i=0,31 do
+		rectfill2(start_pos.x + colors_size*(i-4*flr(i*0.25)), start_pos.y + colors_size*flr(i*0.25), colors_size, colors_size, i)
+	end
+end
+
+function draw_fade_palette()
+	for i=0,#fade do 
+		pal(i,fade[i],0)
+	end
+	draw_pallete({ x = 480-colors_size*4, y = 0 })
+	pal()
+end
 :: .info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xNyAxNzo1NjoxNiIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
-IzYiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImRyYXdzLmx1YSMxMCIsd29ya3NwYWNl
-X2luZGV4PTF9LHtsb2NhdGlvbj0iZ2Z4LzAuZ2Z4Iix3b3Jrc3BhY2VfaW5kZXg9Mn0se2xvY2F0
-aW9uPSJtYXAvMC5tYXAiLHdvcmtzcGFjZV9pbmRleD0zfSx7bG9jYXRpb249InNmeC8wLnNmeCIs
-d29ya3NwYWNlX2luZGV4PTR9fV1d
+Mi0xOCAxNzo1OTozMyIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
+IzE0Iix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJkcmF3cy5sdWEjMyIsd29ya3NwYWNl
+X2luZGV4PTF9LHtsb2NhdGlvbj0idWkubHVhIzEwIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0
+aW9uPSJqYXZhc2NyaXB0Lmx1YSM4MiIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iZ2Z4
+LzAuZ2Z4Iix3b3Jrc3BhY2VfaW5kZXg9Mn0se2xvY2F0aW9uPSJtYXAvMC5tYXAiLHdvcmtzcGFj
+ZV9pbmRleD0zfSx7bG9jYXRpb249InNmeC8wLnNmeCIsd29ya3NwYWNlX2luZGV4PTR9fV1d
 :: [eoc]
