@@ -4,39 +4,39 @@ version 2
 :: gfx/
 :: gfx/0.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAwMzoyMTowNiIscmV2aXNpb249NzUwXV1sejQAuAAAAFoxAADzIXtbMF09e2JtcD1weHUA
+Mi0xOSAxNzozOTozMyIscmV2aXNpb249OTE2XV1sejQAuAAAAFoxAADzIXtbMF09e2JtcD1weHUA
 QyAQEATwVgcQB8AX0BfABxAH8FYsZmxhZ3M9MCxwYW5feAgAx3k9MCx6b29tPTh9LD4AzyAgBKeQ
 9waQx-AMNwMABFQX8P8xFw0ADgMAEMc-ABundABDLTEuMncAMjEuNHkAOzV9LLcAH-CqAAwPMQD-
 --------------------------------------------------------------_HUG09OH19
 :: gfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAwMzoyMTowNiJdXQ==
+Mi0xOSAxNzozOTozNCJdXQ==
 :: map/
 :: map/0.map
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAwMzoyMTowNiIscmV2aXNpb249NzU3XV1sejQAdQAAAGQQAADwCHt7Ym1wPXVzZXJkYXRh
+Mi0xOSAxNzozOTozMyIscmV2aXNpb249OTIxXV1sejQAdQAAAGQQAADwCHt7Ym1wPXVzZXJkYXRh
 KCJpMTYiLDMyAwAvIjABAP--------------------vxDSIpLGhpZGRlbj1mYWxzZSxwYW5feD0t
 MTkuNzUNAPIDeT0tMTA2LjUsdGlsZV9oPTE2CgAQdwoAoHpvb209MC41fX0=
 :: map/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAwMzoyMTowNiJdXQ==
+Mi0xOSAxNzozOTozNCJdXQ==
 :: sfx/
 :: sfx/0.sfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAwMzoyMTowNiIscmV2aXNpb249NzI0XV1sejQAoAAAAAsKAAD-MHB4dQADKAAABAAED0AQ
+Mi0xOSAxNzozOTozMyIscmV2aXNpb249ODg4XV1sejQAoAAAAAsKAAD-MHB4dQADKAAABAAED0AQ
 Ag4AAaABIAKgDgAPEAAN8MoBAgNADw_QBAUGB0AMkAgJCgtADJAPDA8NDw4MQAzw-wEA6-8nqgEQ
 Bg8gEAEgASAB8AACEAIOEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYOMAD-----
 -70f-wEArM-ID0AADxBA--_w8P8BAP-qUP----8p
 :: sfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAwMzoyMTowNiJdXQ==
+Mi0xOSAxNzozOTozNCJdXQ==
 :: draws.lua
---[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-19 03:21:06",revision=1124]]
+--[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-19 17:39:33",revision=1308]]
 function draw_palette()
 	cls(0)
 	draw_pallete()
 	draw_fade_palette()
-	spr(1, 0, 0) -- visual target color
+	draw_target()
 	--debug
 	mx, my, mb = mouse() -- mouse input and debug
 	line(mx, my,   mx+4, my+4, 7+mb) -- color 7/white by default, modified by buttons
@@ -45,8 +45,16 @@ function draw_palette()
 	foreach(deug, print)
 end
 
+function draw_target()
+	if target_color == 7 then
+		pal(7, 0, 0)
+	end
+	spr(1, target_pos.x, target_pos.y) -- visual target color
+	pal()
+end
+
 function doFade() -- placehodler
-	fadetable = buildFadeToSingleColor(0, fade_length)--0 is fade to black, add setTargetColor \\ 16 is placehodler, try more and find the best
+	fadetable = buildFadeToSingleColor(target_color, fade_length)
 end
 
 function buildFadeToSingleColor(target_color, steps)
@@ -124,7 +132,7 @@ function rectfill2(_x,_y,_w,_h,_c)
 	rectfill(_x,_y,_x+max(_w-1,0),_y+max(_h-1,0),_c)
 end
 :: javascript.lua
---[[pod_format="raw",created="2024-12-18 16:58:16",modified="2024-12-19 03:21:06",revision=425]]
+--[[pod_format="raw",created="2024-12-18 16:58:16",modified="2024-12-19 17:39:33",revision=592]]
 
 
     var previewFrame = 0;
@@ -485,16 +493,18 @@ end
       update();
     });
 :: main.lua
---[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-19 03:21:06",revision=887]]
+--[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-19 17:39:33",revision=1168]]
 include "draws.lua"
 include "ui.lua"
 
 function _init()
 	vid(1) -- for debug
+	target_color = 0
 	fadetable = {}
 	colors_size = 32
 	fade_length = 16
 	deug = {}
+	target_pos = { x = 0, y = 0 }
 	
 	palette_rgb = 
 	{
@@ -547,11 +557,31 @@ function _update()
 	if btnp(0) and j > 0 then
 		j-=1
 	end
-	if btnp (1) then
+	if btnp (1) and j < fade_length - 2 then
 		j+=1
 	end
 	if anim then
 		j = sin(t/144 - math.pi/2)*fade_length/2 + fade_length/2
+	else
+		mouse_tracker()
+	end
+end
+
+function 	mouse_tracker() -- use size 
+   local mx, my, mb =	mouse()
+	
+	if mx > colors_size*4 or my > colors_size*8 then return end
+	
+	if mb == 1 then
+		local x_pos, y_pos = 0
+		for i=0,31 do
+			if mx >= colors_size*(i-4*flr(i*0.25)) and mx < colors_size*(i-4*flr(i*0.25) + 1) and my >= colors_size*flr(i*0.25) and my < colors_size*(flr(i*0.25) + 1) then --and mx < colors_size*(i+1-4*flr(i+1*0.25))
+				target_pos = { x = colors_size*(i-4*flr(i*0.25)) , y = colors_size*flr(i*0.25)}
+				target_color = i
+				doFade()
+				return
+			end
+		end
 	end
 end
 
@@ -559,7 +589,7 @@ function _draw()
 	draw_palette()
 end
 :: ui.lua
---[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-19 03:21:06",revision=572]]
+--[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-19 17:39:33",revision=743]]
 function draw_pallete(start_pos)
 	start_pos = start_pos or { x = 0, y = 0}
 	for i=0,31 do
@@ -586,10 +616,10 @@ function draw_fade_palette()
 end
 :: .info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAwMzoyMTowNiIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
-IzciLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImRyYXdzLmx1YSM3Iix3b3Jrc3BhY2Vf
-aW5kZXg9MX0se2xvY2F0aW9uPSJ1aS5sdWEjMTYiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRp
-b249ImphdmFzY3JpcHQubHVhIzcxIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJnZngv
-MC5nZngiLHdvcmtzcGFjZV9pbmRleD0yfSx7bG9jYXRpb249Im1hcC8wLm1hcCIsd29ya3NwYWNl
-X2luZGV4PTN9LHtsb2NhdGlvbj0ic2Z4LzAuc2Z4Iix3b3Jrc3BhY2VfaW5kZXg9NH19XV0=
+Mi0xOSAxNzozOTozNCIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
+IzQ4Iix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJkcmF3cy5sdWEjMjMiLHdvcmtzcGFj
+ZV9pbmRleD0xfSx7bG9jYXRpb249InVpLmx1YSMxMSIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2Nh
+dGlvbj0iamF2YXNjcmlwdC5sdWEjNzEiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249Imdm
+eC8wLmdmeCIsd29ya3NwYWNlX2luZGV4PTJ9LHtsb2NhdGlvbj0ibWFwLzAubWFwIix3b3Jrc3Bh
+Y2VfaW5kZXg9M30se2xvY2F0aW9uPSJzZngvMC5zZngiLHdvcmtzcGFjZV9pbmRleD00fX1dXQ==
 :: [eoc]
