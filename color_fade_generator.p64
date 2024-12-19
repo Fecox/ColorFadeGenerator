@@ -4,44 +4,42 @@ version 2
 :: gfx/
 :: gfx/0.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAxNzozOTozMyIscmV2aXNpb249OTE2XV1sejQAuAAAAFoxAADzIXtbMF09e2JtcD1weHUA
-QyAQEATwVgcQB8AX0BfABxAH8FYsZmxhZ3M9MCxwYW5feAgAx3k9MCx6b29tPTh9LD4AzyAgBKeQ
-9waQx-AMNwMABFQX8P8xFw0ADgMAEMc-ABundABDLTEuMncAMjEuNHkAOzV9LLcAH-CqAAwPMQD-
---------------------------------------------------------------_HUG09OH19
+Mi0xOSAyMDoxMjo1OSIscmV2aXNpb249MTA1NV1dbHo0ALgAAABaMQAA8yF7WzBdPXtibXA9cHh1
+AEMgEBAE8FYHEAfAF9AXwAcQB-BWLGZsYWdzPTAscGFuX3gIAMd5PTAsem9vbT04fSw_AM8gIASn
+kPcGkMfwDDcDAARUF-D-MRcNAA4DABDHPwAbp3QAQy0xLjJ3ADIxLjR5ADs1fSy3AB-wqgAMDzEA
+----------------------------------------------------------------h1BtPTh9fQ==
 :: gfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAxNzozOTozNCJdXQ==
+Mi0xOSAyMDoxMjo1OSJdXQ==
 :: map/
 :: map/0.map
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAxNzozOTozMyIscmV2aXNpb249OTIxXV1sejQAdQAAAGQQAADwCHt7Ym1wPXVzZXJkYXRh
-KCJpMTYiLDMyAwAvIjABAP--------------------vxDSIpLGhpZGRlbj1mYWxzZSxwYW5feD0t
-MTkuNzUNAPIDeT0tMTA2LjUsdGlsZV9oPTE2CgAQdwoAoHpvb209MC41fX0=
+Mi0xOSAyMDoxMjo1OSIscmV2aXNpb249MTA1M11dbHo0AHkAAABlEAAA8Ah7e2JtcD11c2VyZGF0
+YSgiaTE2IiwzMgMAXyIwMDAyBAD--------------------48Q0iKSxoaWRkZW49ZmFsc2UscGFu
+X3g9LTE5Ljc1DQDyA3k9LTEwNi41LHRpbGVfaD0xNgoAEHcKALB6b29tPTAuMjV9fQ==
 :: map/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAxNzozOTozNCJdXQ==
+Mi0xOSAyMDoxMjo1OSJdXQ==
 :: sfx/
 :: sfx/0.sfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAxNzozOTozMyIscmV2aXNpb249ODg4XV1sejQAoAAAAAsKAAD-MHB4dQADKAAABAAED0AQ
-Ag4AAaABIAKgDgAPEAAN8MoBAgNADw_QBAUGB0AMkAgJCgtADJAPDA8NDw4MQAzw-wEA6-8nqgEQ
-Bg8gEAEgASAB8AACEAIOEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYOMAD-----
--70f-wEArM-ID0AADxBA--_w8P8BAP-qUP----8p
+Mi0xOSAyMDoxMjo1OSIscmV2aXNpb249MTAxNV1dbHo0AKAAAAALCgAA-zBweHUAAygAAAQABA9A
+EAIOAAGgASACoA4ADxAADfDKAQIDQA8PkAQFBgdADJAICQoLQAyQDwwPDQ8ODEAM8P8BAOv-J6oB
+EAYPIBABIAEgAfAAAhACDhABIA8hIAEwD0Dwww8oD--wxg-4Cg--D4AP9w8NAfAJARAGDjAA----
+--_9H-8BAKzPyA9AAA8QQP--sPD-AQD-6lD-----KQ==
 :: sfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAxNzozOTozNCJdXQ==
+Mi0xOSAyMDoxMjo1OSJdXQ==
 :: draws.lua
---[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-19 17:39:33",revision=1308]]
-function draw_palette()
+--[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-19 20:12:59",revision=1450]]
+function draw_game()
 	cls(0)
+	map(0)
 	draw_pallete()
 	draw_fade_palette()
 	draw_target()
+	draw_instructions()
 	--debug
-	mx, my, mb = mouse() -- mouse input and debug
-	line(mx, my,   mx+4, my+4, 7+mb) -- color 7/white by default, modified by buttons
-	line(mx, my,   mx,   my+6)
-	line(mx, my+5, mx+4, my+4)
 	foreach(deug, print)
 end
 
@@ -131,380 +129,18 @@ end
 function rectfill2(_x,_y,_w,_h,_c)
 	rectfill(_x,_y,_x+max(_w-1,0),_y+max(_h-1,0),_c)
 end
-:: javascript.lua
---[[pod_format="raw",created="2024-12-18 16:58:16",modified="2024-12-19 17:39:33",revision=592]]
-
-
-    var previewFrame = 0;
-    var fadeTargetColor = 0;
-    var colorSpace = 0; // 0=RGB, 1=HSL
-    var sourcePalette = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-    var pickingColorForSourcePalette = false;
-    var selectedSourcePaletteColor = 0;
-
-    var modes = [
-      { name: "RGB", w0: 'R', w1: 'G', w2: 'B' },
-      { name: "HSV", w0: 'H', w1: 'V', w2: null }
-    ]
-
-    var fadeCodeStub = '<span class="token-pink">function</span> fade<span class="token-white">(</span>i<span class="token-white">)</span><br/> <span class="token-pink">for</span> c<span class="token-white">=</span><span class="token-blue">0</span><span class="token-white">,</span><span class="token-blue">15</span> <span class="token-pink">do<br/>  if</span> <span class="token-green">flr</span><span class="token-white">(</span>i<span class="token-white">+</span><span class="token-blue">1</span><span class="token-white">)&gt;=</span><span class="token-blue">%SIZE%</span> <span class="token-pink">then</span>'
-      + '<br/>   <span class="token-green">pal</span><span class="token-white">(</span>c<span class="token-white">,</span><span class="token-blue">%TARGET%</span><span class="token-white">)</span><br/>  <span class="token-pink">else</span><br/>   <span class="token-green">pal</span><span class="token-white">(</span>c,fadetable<span class="token-white">[</span>c<span class="token-white">+</span><span class="token-blue">1</span><span class="token-white">][</span><span class="token-green">flr</span><span class="token-white">(</span>i<span class="token-white">+</span><span class="token-blue">1</span><span class="token-white">)])</span><br/>  <span class="token-pink">end<br/> end<br/>end</span><br/>';
-
-    var pico8Colors = [
-      [0, 0, 0],
-      [29, 43, 83],
-      [126, 37, 83],
-      [0, 135, 81],
-      [171, 82, 54],
-      [95, 87, 79],
-      [194, 195, 199],
-      [255, 241, 232],
-      [255, 0, 77],
-      [255, 163, 0],
-      [255, 236, 39],
-      [0, 228, 54],
-      [41, 173, 255],
-      [131, 118, 156],
-      [255, 119, 168],
-      [255, 204, 170],
-      // The secret 128+ palette
-      [0x29, 0x18, 0x14],
-      [0x11, 0x1d, 0x35],
-      [0x42, 0x21, 0x36],
-      [0x12, 0x53, 0x59],
-      [0x74, 0x2f, 0x29],
-      [0x49, 0x33, 0x3b],
-      [0xa2, 0x88, 0x79],
-      [0xf3, 0xef, 0x7d],
-      [0xbe, 0x12, 0x50],
-      [0xff, 0x6c, 0x24],
-      [0xa8, 0xe7, 0x2e],
-      [0x00, 0xb5, 0x43],
-      [0x06, 0x5a, 0xb5],
-      [0x75, 0x46, 0x65],
-      [0xff, 0x6e, 0x59],
-      [0xff, 0x9d, 0x81],
-    ];
-
-    // Found the following RGB to HSL function from
-    // http://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
-
-    function rgbToHsv(r, g, b) {
-      r = r / 255, g = g / 255, b = b / 255;
-      var max = Math.max(r, g, b), min = Math.min(r, g, b);
-      var h, s, v = max;
-
-      var d = max - min;
-      s = max == 0 ? 0 : d / max;
-
-      if (max == min) {
-        h = 0; // achromatic
-      } else {
-        switch (max) {
-          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-          case g: h = (b - r) / d + 2; break;
-          case b: h = (r - g) / d + 4; break;
-        }
-        h /= 6;
-      }
-
-      return [h, s, v];
-    }
-
-    function findClosestColor(r, g, b, w0, w1, w2, mode, useHiddenColors) {
-      var e = -1; // smallest error
-      var c = -1; // closest color
-      var colorRange = useHiddenColors ? 32 : 16;
-
-      for (var i = 0; i < colorRange; ++i) {
-        // calculate distance between wanted color
-        // and pico-8 color in RGB/HSL color space
-
-        var d0, d1, d2, distance;
-
-        if (mode == 0) {
-          d0 = (pico8Colors[i][0] - r) * w0;
-          d1 = (pico8Colors[i][1] - g) * w1;
-          d2 = (pico8Colors[i][2] - b) * w2;
-
-          distance = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2)
-        }
-        else {
-          var ca = rgbToHsv(pico8Colors[i][0], pico8Colors[i][1], pico8Colors[i][2]);
-          var cb = rgbToHsv(r, g, b);
-
-          d0 = (Math.cos(ca[0] * Math.PI * 2) * ca[1] - Math.cos(cb[0] * Math.PI * 2) * cb[1]) * w0;
-          d1 = (Math.sin(ca[0] * Math.PI * 2) * ca[1] - Math.sin(cb[0] * Math.PI * 2) * cb[1]) * w0;
-          d2 = (ca[2] - cb[2]) * w1;
-
-          distance = d0 * d0 + d1 * d1 + d2 * d2;
-        }
-
-        if (e == -1 || e > distance) {
-          e = distance;
-          c = i;
-        }
-      }
-
-      return c;
-    }
-
-    function buildFadeToSingleColor(targetColor, steps, mode, w0, w1, w2, useHiddenColors) {
-      var fade = []
-
-      for (var c = 0; c < 16; ++c) {
-        var palette = [];
-        const sc = sourcePalette[c];
-
-        for (var i = 1; i < steps; ++i) {
-          var r = (pico8Colors[targetColor][0] - pico8Colors[sc][0]) * i / steps + pico8Colors[sc][0];
-          var g = (pico8Colors[targetColor][1] - pico8Colors[sc][1]) * i / steps + pico8Colors[sc][1];
-          var b = (pico8Colors[targetColor][2] - pico8Colors[sc][2]) * i / steps + pico8Colors[sc][2];
-
-          palette.push(findClosestColor(r, g, b, w0, w1, w2, mode, useHiddenColors));
-        }
-
-        fade.push(palette);
-      }
-
-      return fade;
-    }
-
-    function buildFadeToPalette(targetPalette, steps, mode, w0, w1, w2, useHiddenColors) {
-      var fade = []
-
-      for (var c = 0; c < 16; ++c) {
-        var palette = []
-
-        for (var i = 1; i < steps; ++i) {
-          var r = (pico8Colors[targetPalette[c]][0] - pico8Colors[c][0]) * i / steps + pico8Colors[c][0];
-          var g = (pico8Colors[targetPalette[c]][1] - pico8Colors[c][1]) * i / steps + pico8Colors[c][1];
-          var b = (pico8Colors[targetPalette[c]][2] - pico8Colors[c][2]) * i / steps + pico8Colors[c][2];
-
-          palette.push(findClosestColor(r, g, b, w0, w1, w2, mode, useHiddenColors));
-        }
-
-        fade.push(palette);
-      }
-
-      return fade;
-    }
-
-    function updatePalette(id, palette) {
-      for (var c = 0; c < 16; ++c)
-        $('#' + id + ' > *[data-index="' + c + '"]').css('border-color', 'rgb(' + pico8Colors[palette[c]][0] + "," + pico8Colors[palette[c]][1] + "," + pico8Colors[palette[c]][2] + ')');
-    }
-
-    function createPalette(id, size) {
-      $('#' + id).html("");
-      for (var c = 0; c < size; ++c) {
-        var col = 'rgb(255, 241, 232)';
-
-        if (c % 16 >= 4) {
-          // 0..3 and 16..19 are considered "dark" so the dot needs to be white for those and black for 4..15 etc.
-          col = 'rgb(0,0,0)';
-        }
-
-        $('#' + id).append("<div title=\"" + c + "\" data-index=\"" + c + "\" style=\"background:" + col + ";border-color:rgb(" + pico8Colors[c][0] + "," + pico8Colors[c][1] + "," + pico8Colors[c][2] + ")\"></div>");
-      }
-    }
-
-    function createSourcePalette(id) {
-      $('#' + id).html("");
-      for (var c = 0; c < 16; ++c) {
-        var col = 'rgb(255, 241, 232)';
-
-        if (c % 16 >= 4) {
-          // 0..3 and 16..19 are considered "dark" so the dot needs to be white for those and black for 4..15 etc.
-          col = 'rgb(0,0,0)';
-        }
-
-        var sc = sourcePalette[c];
-
-        $('#' + id).append("<div title=\"" + c + "\" data-index=\"" + c + "\" style=\"background:" + col + ";border-color:rgb(" +
-          pico8Colors[sc][0] + "," + pico8Colors[sc][1] + "," + pico8Colors[sc][2] + ")\"></div>");
-      }
-
-      $('#' + id + ' > *').click(function (e) {
-        $('#' + id + ' > *').removeClass('selected');
-        $(e.target).addClass('selected');
-        pickingColorForSourcePalette = true;
-        selectedSourcePaletteColor = parseInt($(e.target).data('index'), 10);
-        update();
-        setInfo('Select new color from target colors');
-      });
-    }
-
-    function update() {
-      var useHiddenColors = $('#use-hidden-colors').prop('checked');
-      var steps = parseInt($('#steps').val(), 10);
-      var mode = parseInt($('#color-space').val(), 10);
-      var w0 = parseInt($('#w0').val(), 10);
-      var w1 = parseInt($('#w1').val(), 10);
-      var w2 = parseInt($('#w2').val(), 10);
-      var fade = buildFadeToSingleColor(g, steps, mode, w0, w1, w2, useHiddenColors);
-      var src = '<span class="token-pink">local</span> fadeTable<span class="token-white">={</span><br/>';
-      var data = []
-
-      for (var f in fade) {
-        // Note: We need to make the 16..31 color index range go 128..143 as that's how it is mapped in PICO-8
-        data.push(' <span class="token-white">{</span><span class="token-blue">' +
-          fade[f].map(c => c >= 16 ? c - 16 + 128 : c)
-            .join('</span><span class="token-white">,</span><span class="token-blue">') +
-          '</span><span class="token-white">}</span>'
-        );
-      }
-
-      src += data.join('<span class="token-white">,</span><br/>') + '<br/><span class="token-white">}</span><br/><br/>' + fadeCodeStub.replace('%SIZE%', steps).replace('%TARGET%', fadeTargetColor);
-
-      $('#source-code').html(src);
-
-      updatePreview();
-    }
-
-    function updateWeightLabels() {
-      var mode = $('#color-space').val();
-
-      if (modes[mode].w0) {
-        $('#w0-el').show();
-        $('#w0-label').text(modes[mode].w0);
-      }
-      else
-        $('#w0-el').hide();
-
-      if (modes[mode].w1) {
-        $('#w1-el').show();
-        $('#w1-label').text(modes[mode].w1);
-      }
-      else
-        $('#w1-el').hide();
-
-      if (modes[mode].w2) {
-        $('#w2-el').show();
-        $('#w2-label').text(modes[mode].w2);
-      }
-      else
-        $('#w2-el').hide();
-    }
-
-    function updatePreview() {
-      // If we use onChange() it would only update
-      // when releasing the mouse button so we poll
-      // every 50 ms.
-
-      setTimeout(updatePreview, 50);
-
-      var useHiddenColors = $('#use-hidden-colors').prop('checked');
-      var steps = parseInt($('#steps').val(), 10);
-      var mode = parseInt($('#color-space').val(), 10);
-      var w0 = parseInt($('#w0').val(), 10);
-      var w1 = parseInt($('#w1').val(), 10);
-      var w2 = parseInt($('#w2').val(), 10);
-
-
-      var f = parseInt($('#fade-slider').val(), 10);
-
-      if (f > 0 && f < steps) {
-        var pal = buildFadeToSingleColor(fadeTargetColor, steps, mode, w0, w1, w2, useHiddenColors);
-        var tempPalette = []
-
-        for (var c = 0; c < 16; ++c)
-          tempPalette.push(pal[c][f - 1]);
-
-        updatePalette('preview-palette', tempPalette);
-      }
-      else if (f == steps) {
-        var pal = [];
-        for (var c = 0; c < 16; ++c)
-          pal.push(fadeTargetColor);
-
-        updatePalette('preview-palette', pal);
-      }
-      else {
-        var pal = [];
-        for (var c = 0; c < 16; ++c)
-          pal.push(sourcePalette[c]);
-
-        updatePalette('preview-palette', pal);
-      }
-    }
-
-    function updateSlider() {
-      $('#fade-slider').attr('max', parseInt($('#steps').val(), 10));
-    }
-
-    function setTargetColor(e) {
-      $('#target-color *').removeClass('selected');
-      fadeTargetColor = $(e).addClass('selected').data('index');
-    }
-
-    function setSourcePaletteColor(e) {
-      sourcePalette[selectedSourcePaletteColor] = $(e).data('index');
-      pickingColorForSourcePalette = false;
-      createSourcePalette('source-palette');
-      setInfo('');
-    }
-
-    function setupTargetColorEvents() {
-      $('#target-color > *').click(function (e) {
-        if (pickingColorForSourcePalette) {
-          setSourcePaletteColor(e.target);
-        } else {
-          setTargetColor(e.target);
-        }
-        update();
-      });
-    }
-
-    function setInfo(text) {
-      $('#info-line').text(text);
-    }
-
-    $(function () {
-      setInfo('Start editing source palette by clicking on color');
-      createSourcePalette('source-palette');
-      createPalette('target-color', 32);
-      createPalette('preview-palette', 16);
-      setupTargetColorEvents();
-      $('#steps').change(function (e) {
-        updateSlider();
-        update();
-      });
-      $('#color-space').change(function (e) {
-        updateWeightLabels();
-        update();
-      });
-      $('#use-hidden-colors').change(function (e) {
-        var useHiddenColors = $('#use-hidden-colors').prop('checked');
-        if (!useHiddenColors) {
-          // Limit target color to 0..15 if not using the hidden colors
-          fadeTargetColor %= 16;
-        }
-        createPalette('target-color', useHiddenColors ? 32 : 16);
-        setupTargetColorEvents();
-        setTargetColor($('#target-color *[data-index="' + fadeTargetColor + '"]'));
-        update();
-      });
-
-      setTargetColor($('#target-color *[data-index="0"]'));
-      updateSlider();
-      updatePreview();
-      updateWeightLabels();
-      update();
-    });
 :: main.lua
---[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-19 17:39:33",revision=1168]]
+--[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-19 20:12:59",revision=1317]]
 include "draws.lua"
 include "ui.lua"
 
 function _init()
-	vid(1) -- for debug
 	target_color = 0
 	fadetable = {}
 	colors_size = 32
 	fade_length = 16
 	deug = {}
-	target_pos = { x = 0, y = 0 }
+	target_pos = { x = 7, y = 7 }
 	
 	palette_rgb = 
 	{
@@ -561,7 +197,7 @@ function _update()
 		j+=1
 	end
 	if anim then
-		j = sin(t/144 - math.pi/2)*fade_length/2 + fade_length/2
+		j = sin(t/144 - math.pi/2)*(fade_length-1)/2 + (fade_length-1)/2
 	else
 		mouse_tracker()
 	end
@@ -575,8 +211,8 @@ function 	mouse_tracker() -- use size
 	if mb == 1 then
 		local x_pos, y_pos = 0
 		for i=0,31 do
-			if mx >= colors_size*(i-4*flr(i*0.25)) and mx < colors_size*(i-4*flr(i*0.25) + 1) and my >= colors_size*flr(i*0.25) and my < colors_size*(flr(i*0.25) + 1) then --and mx < colors_size*(i+1-4*flr(i+1*0.25))
-				target_pos = { x = colors_size*(i-4*flr(i*0.25)) , y = colors_size*flr(i*0.25)}
+			if mx >= (colors_size*(i-4*flr(i*0.25)))+7 and mx < (colors_size*(i-4*flr(i*0.25) + 1))+7 and my >= colors_size*flr(i*0.25) and my < (colors_size*(flr(i*0.25) + 1))+7 then --and mx < colors_size*(i+1-4*flr(i+1*0.25))
+				target_pos = { x = colors_size*(i-4*flr(i*0.25)) + 7 , y = colors_size*flr(i*0.25)+7}
 				target_color = i
 				doFade()
 				return
@@ -586,12 +222,12 @@ function 	mouse_tracker() -- use size
 end
 
 function _draw()
-	draw_palette()
+	draw_game()
 end
 :: ui.lua
---[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-19 17:39:33",revision=743]]
+--[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-19 20:12:59",revision=954]]
 function draw_pallete(start_pos)
-	start_pos = start_pos or { x = 0, y = 0}
+	start_pos = start_pos or { x = 7, y = 7}
 	for i=0,31 do
 		rectfill2(start_pos.x + colors_size*(i-4*flr(i*0.25)), start_pos.y + colors_size*flr(i*0.25), colors_size, colors_size, i)
 	end
@@ -611,15 +247,24 @@ function draw_fade_palette()
 			pal(c, fadetable[c+1][flr(j+1)], 0)
 		end
 	end
-	draw_pallete({ x = 480-colors_size*4, y = 0 })
+	draw_pallete({ x = 480-colors_size*4-7, y = 7 })
 	pal()
+end
+
+function draw_instructions()
+	local lenght = print("Press \142 to start color fade animation", 0, 270)
+	local lenght2 = print("Use the arrow keys to scroll through it.", 0, 270)
+	local lenght3 = print("Click on a color to set the fade start.", 0, 270)
+	print("Click on a color to set the fade start.", 480/2 - lenght3/2 , 80, 7)
+	print("Use the arrow keys to scroll through it.", 480/2 - lenght2/2, 130, 7)
+	print("Press \142 to start color fade animation", 480/2 - lenght/2, 180, 7)
 end
 :: .info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAxNzozOTozNCIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
-IzQ4Iix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJkcmF3cy5sdWEjMjMiLHdvcmtzcGFj
-ZV9pbmRleD0xfSx7bG9jYXRpb249InVpLmx1YSMxMSIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2Nh
-dGlvbj0iamF2YXNjcmlwdC5sdWEjNzEiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249Imdm
-eC8wLmdmeCIsd29ya3NwYWNlX2luZGV4PTJ9LHtsb2NhdGlvbj0ibWFwLzAubWFwIix3b3Jrc3Bh
-Y2VfaW5kZXg9M30se2xvY2F0aW9uPSJzZngvMC5zZngiLHdvcmtzcGFjZV9pbmRleD00fX1dXQ==
+Mi0xOSAyMDoxMjo1OSIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
+IzEiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImRyYXdzLmx1YSM2Iix3b3Jrc3BhY2Vf
+aW5kZXg9MX0se2xvY2F0aW9uPSJ1aS5sdWEjMzIiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRp
+b249ImdmeC8wLmdmeCIsd29ya3NwYWNlX2luZGV4PTJ9LHtsb2NhdGlvbj0ibWFwLzAubWFwIix3
+b3Jrc3BhY2VfaW5kZXg9M30se2xvY2F0aW9uPSJzZngvMC5zZngiLHdvcmtzcGFjZV9pbmRleD00
+fX1dXQ==
 :: [eoc]
