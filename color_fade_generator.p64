@@ -4,34 +4,34 @@ version 2
 :: gfx/
 :: gfx/0.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAyMDoxMjo1OSIscmV2aXNpb249MTA1NV1dbHo0ALgAAABaMQAA8yF7WzBdPXtibXA9cHh1
+Mi0yMCAxNzozMDo0MiIscmV2aXNpb249MTA2N11dbHo0ALgAAABaMQAA8yF7WzBdPXtibXA9cHh1
 AEMgEBAE8FYHEAfAF9AXwAcQB-BWLGZsYWdzPTAscGFuX3gIAMd5PTAsem9vbT04fSw_AM8gIASn
 kPcGkMfwDDcDAARUF-D-MRcNAA4DABDHPwAbp3QAQy0xLjJ3ADIxLjR5ADs1fSy3AB-wqgAMDzEA
 ----------------------------------------------------------------h1BtPTh9fQ==
 :: gfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAyMDoxMjo1OSJdXQ==
+Mi0yMCAxNzozMDo0MiJdXQ==
 :: map/
 :: map/0.map
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAyMDoxMjo1OSIscmV2aXNpb249MTA1M11dbHo0AHkAAABlEAAA8Ah7e2JtcD11c2VyZGF0
+Mi0yMCAxNzozMDo0MiIscmV2aXNpb249MTA2NV1dbHo0AHkAAABlEAAA8Ah7e2JtcD11c2VyZGF0
 YSgiaTE2IiwzMgMAXyIwMDAyBAD--------------------48Q0iKSxoaWRkZW49ZmFsc2UscGFu
 X3g9LTE5Ljc1DQDyA3k9LTEwNi41LHRpbGVfaD0xNgoAEHcKALB6b29tPTAuMjV9fQ==
 :: map/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAyMDoxMjo1OSJdXQ==
+Mi0yMCAxNzozMDo0MiJdXQ==
 :: sfx/
 :: sfx/0.sfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAyMDoxMjo1OSIscmV2aXNpb249MTAxNV1dbHo0AKAAAAALCgAA-zBweHUAAygAAAQABA9A
+Mi0yMCAxNzozMDo0MiIscmV2aXNpb249MTAyN11dbHo0AKAAAAALCgAA-zBweHUAAygAAAQABA9A
 EAIOAAGgASACoA4ADxAADfDKAQIDQA8PkAQFBgdADJAICQoLQAyQDwwPDQ8ODEAM8P8BAOv-J6oB
 EAYPIBABIAEgAfAAAhACDhABIA8hIAEwD0Dwww8oD--wxg-4Cg--D4AP9w8NAfAJARAGDjAA----
 --_9H-8BAKzPyA9AAA8QQP--sPD-AQD-6lD-----KQ==
 :: sfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAyMDoxMjo1OSJdXQ==
+Mi0yMCAxNzozMDo0MiJdXQ==
 :: draws.lua
---[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-19 20:12:59",revision=1450]]
+--[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-20 17:30:42",revision=1472]]
 function draw_game()
 	cls(0)
 	map(0)
@@ -52,7 +52,7 @@ function draw_target()
 end
 
 function doFade() -- placehodler
-	fadetable = buildFadeToSingleColor(target_color, fade_length)
+	fadetable = buildFadeToSingleColor(target_color, fade_length)-- comentario para dejar claro la implementacion
 end
 
 function buildFadeToSingleColor(target_color, steps)
@@ -130,7 +130,7 @@ function rectfill2(_x,_y,_w,_h,_c)
 	rectfill(_x,_y,_x+max(_w-1,0),_y+max(_h-1,0),_c)
 end
 :: main.lua
---[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-19 20:12:59",revision=1317]]
+--[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-20 17:30:42",revision=1331]]
 include "draws.lua"
 include "ui.lua"
 
@@ -225,7 +225,7 @@ function _draw()
 	draw_game()
 end
 :: ui.lua
---[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-19 20:12:59",revision=954]]
+--[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-20 17:30:42",revision=970]]
 function draw_pallete(start_pos)
 	start_pos = start_pos or { x = 7, y = 7}
 	for i=0,31 do
@@ -261,9 +261,9 @@ function draw_instructions()
 end
 :: .info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0xOSAyMDoxMjo1OSIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
-IzEiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImRyYXdzLmx1YSM2Iix3b3Jrc3BhY2Vf
-aW5kZXg9MX0se2xvY2F0aW9uPSJ1aS5sdWEjMzIiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRp
+Mi0yMCAxNzozMDo0MiIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
+IzYiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImRyYXdzLmx1YSMyMSIsd29ya3NwYWNl
+X2luZGV4PTF9LHtsb2NhdGlvbj0idWkubHVhIzgiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRp
 b249ImdmeC8wLmdmeCIsd29ya3NwYWNlX2luZGV4PTJ9LHtsb2NhdGlvbj0ibWFwLzAubWFwIix3
 b3Jrc3BhY2VfaW5kZXg9M30se2xvY2F0aW9uPSJzZngvMC5zZngiLHdvcmtzcGFjZV9pbmRleD00
 fX1dXQ==
