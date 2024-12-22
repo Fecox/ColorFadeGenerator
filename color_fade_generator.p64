@@ -4,80 +4,78 @@ version 2
 :: gfx/
 :: gfx/0.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0yMCAxNzozMDo0MiIscmV2aXNpb249MTA2N11dbHo0ALgAAABaMQAA8yF7WzBdPXtibXA9cHh1
+Mi0yMiAxODozODoyNyIscmV2aXNpb249MTE2M11dbHo0ALgAAABaMQAA8yF7WzBdPXtibXA9cHh1
 AEMgEBAE8FYHEAfAF9AXwAcQB-BWLGZsYWdzPTAscGFuX3gIAMd5PTAsem9vbT04fSw_AM8gIASn
 kPcGkMfwDDcDAARUF-D-MRcNAA4DABDHPwAbp3QAQy0xLjJ3ADIxLjR5ADs1fSy3AB-wqgAMDzEA
 ----------------------------------------------------------------h1BtPTh9fQ==
 :: gfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0yMCAxNzozMDo0MiJdXQ==
+Mi0yMiAxODozODoyOCJdXQ==
 :: map/
 :: map/0.map
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0yMCAxNzozMDo0MiIscmV2aXNpb249MTA2NV1dbHo0AHkAAABlEAAA8Ah7e2JtcD11c2VyZGF0
+Mi0yMiAxODozODoyNyIscmV2aXNpb249MTE1OV1dbHo0AHkAAABlEAAA8Ah7e2JtcD11c2VyZGF0
 YSgiaTE2IiwzMgMAXyIwMDAyBAD--------------------48Q0iKSxoaWRkZW49ZmFsc2UscGFu
 X3g9LTE5Ljc1DQDyA3k9LTEwNi41LHRpbGVfaD0xNgoAEHcKALB6b29tPTAuMjV9fQ==
 :: map/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0yMCAxNzozMDo0MiJdXQ==
+Mi0yMiAxODozODoyOCJdXQ==
 :: sfx/
 :: sfx/0.sfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0yMCAxNzozMDo0MiIscmV2aXNpb249MTAyN11dbHo0AKAAAAALCgAA-zBweHUAAygAAAQABA9A
+Mi0yMiAxODozODoyNyIscmV2aXNpb249MTEyMV1dbHo0AKAAAAALCgAA-zBweHUAAygAAAQABA9A
 EAIOAAGgASACoA4ADxAADfDKAQIDQA8PkAQFBgdADJAICQoLQAyQDwwPDQ8ODEAM8P8BAOv-J6oB
 EAYPIBABIAEgAfAAAhACDhABIA8hIAEwD0Dwww8oD--wxg-4Cg--D4AP9w8NAfAJARAGDjAA----
 --_9H-8BAKzPyA9AAA8QQP--sPD-AQD-6lD-----KQ==
 :: sfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0yMCAxNzozMDo0MiJdXQ==
+Mi0yMiAxODozODoyOCJdXQ==
 :: draws.lua
---[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-20 17:30:42",revision=1472]]
+--[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-22 18:38:27",revision=1580]]
 function draw_game()
 	cls(0)
-	map(0)
 	draw_pallete()
 	draw_fade_palette()
 	draw_target()
 	draw_instructions()
-	--debug
-	foreach(deug, print)
+end
+:: fade.lua
+--[[pod_format="raw",created="2024-12-22 17:47:48",modified="2024-12-22 18:38:27",revision=107]]
+
+-- Creates a fade palette using two parameters.
+-- target_color: The target color to fade into. Set it to any color from the Pictron palette (0..31). 
+-- Default is black (0).
+-- fade_length: The number of steps for the fade transition from the original color to the target color.
+-- 16 is a well-balanced default value, but feel free to experiment with other values.
+-- 
+-- See the `draw_fade_palette()` function in `ui.lua` for an example of how to implement and use this fade palette.
+function create_fadepalette()
+	fadetable = build_fade_to_target_color(target_color, fade_length)
 end
 
-function draw_target()
-	if target_color == 7 then
-		pal(7, 0, 0)
-	end
-	spr(1, target_pos.x, target_pos.y) -- visual target color
-	pal()
-end
-
-function doFade() -- placehodler
-	fadetable = buildFadeToSingleColor(target_color, fade_length)-- comentario para dejar claro la implementacion
-end
-
-function buildFadeToSingleColor(target_color, steps)
+function build_fade_to_target_color(target_color, steps)
 	local fade = {}
 	target_color += 1
 	
-	for c=1,32 do -- see 32
+	for c=1,32 do
 		local palette = {}
 		
-		for i=1,steps do -- si hay problemas ver estas operaciones
+		for i=1,steps do
 			local r = (palette_rgb[target_color][1] - palette_rgb[c][1]) * i / steps + palette_rgb[c][1]
 			local g = (palette_rgb[target_color][2] - palette_rgb[c][2]) * i / steps + palette_rgb[c][2]
 			local b = (palette_rgb[target_color][3] - palette_rgb[c][3]) * i / steps + palette_rgb[c][3]
 			
-			add(palette, findClosestColor(r, g, b))
+			add(palette, find_closest_color(r, g, b))
 		end
 		fade[#fade + 1] = palette
 	end
 	return fade
 end
 
-function findClosestColor(r, g, b)
+function find_closest_color(r, g, b)
 	local error = -1 -- smalles error
 	local c = -1 -- closest color
-	local color_range = 32 -- pallete lenght
+	local color_range = 32 -- palette lenght
 	
 	for i=0,color_range - 1 do
 		local d0, d1, d2, distance
@@ -94,54 +92,24 @@ function findClosestColor(r, g, b)
 	end
 	return c
 end
-
---function test()
---	local test = {{1, 2, 3},{12, 22, 32}}	
---	local test2 = {13, 23, 33}
---	local table = {}	
---	
---	debug(table)
---	table[1] = test[1]
---	debug(table[1])
---	table[2] = test[2]
---	debug(table)
---	table[3] = test2
---	debug(table[3])
---end
-
--- simple debug(msg) msg = string,number,nil,boolean E.g. debug("hola") print hola
--- multiple debug({string, nil, number, bolean }) E.g. debug({"hola", true, 24}) print holatrue24
-function debug(msg) 
-	local max_lenght = 25
-	if #deug >= max_lenght then deug = {} end
-	
-	if type(msg) == "table" then
-		local message = ""
-		for i=1,#msg == 1 and 2 or #msg do
-			message = message..tostr(msg[i])
-		end
-		add(deug, message)
-	else
-		add(deug, tostr(msg))	
-	end
-end
-
-function rectfill2(_x,_y,_w,_h,_c)
-	rectfill(_x,_y,_x+max(_w-1,0),_y+max(_h-1,0),_c)
-end
 :: main.lua
---[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-20 17:30:42",revision=1331]]
+--[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-22 18:38:27",revision=1443]]
+include "update.lua"
 include "draws.lua"
+include "fade.lua"
 include "ui.lua"
 
 function _init()
 	target_color = 0
-	fadetable = {}
 	colors_size = 32
 	fade_length = 16
-	deug = {}
-	target_pos = { x = 7, y = 7 }
 	
+	t = 0
+	step = 0
+	anim = false
+	
+	fadetable = {}
+	target_pos = { x = 7, y = 7 }
 	palette_rgb = 
 	{
 		{0, 0, 0},
@@ -177,55 +145,19 @@ function _init()
 		{228, 13, 171},
 		{255, 133, 109}
 	}
-	doFade()
-	j=0
-	anim = false
-	t = 0
+	
+	create_fadepalette()
 end
 
 function _update()
-	t+=1
-	if btnp(4) then
-		anim = not anim
-		j = 0
-		t = 0
-	end
-	if btnp(0) and j > 0 then
-		j-=1
-	end
-	if btnp (1) and j < fade_length - 2 then
-		j+=1
-	end
-	if anim then
-		j = sin(t/144 - math.pi/2)*(fade_length-1)/2 + (fade_length-1)/2
-	else
-		mouse_tracker()
-	end
-end
-
-function 	mouse_tracker() -- use size 
-   local mx, my, mb =	mouse()
-	
-	if mx > colors_size*4 or my > colors_size*8 then return end
-	
-	if mb == 1 then
-		local x_pos, y_pos = 0
-		for i=0,31 do
-			if mx >= (colors_size*(i-4*flr(i*0.25)))+7 and mx < (colors_size*(i-4*flr(i*0.25) + 1))+7 and my >= colors_size*flr(i*0.25) and my < (colors_size*(flr(i*0.25) + 1))+7 then --and mx < colors_size*(i+1-4*flr(i+1*0.25))
-				target_pos = { x = colors_size*(i-4*flr(i*0.25)) + 7 , y = colors_size*flr(i*0.25)+7}
-				target_color = i
-				doFade()
-				return
-			end
-		end
-	end
+	update_game()
 end
 
 function _draw()
 	draw_game()
 end
 :: ui.lua
---[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-20 17:30:42",revision=970]]
+--[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-22 18:38:27",revision=1088]]
 function draw_pallete(start_pos)
 	start_pos = start_pos or { x = 7, y = 7}
 	for i=0,31 do
@@ -233,21 +165,30 @@ function draw_pallete(start_pos)
 	end
 end
 
-function draw_fade_palette()
-	if #fadetable == 0 then
-		for i=0,31 do
-			rectfill2(480-colors_size*4 + colors_size*(i-4*flr(i*0.25)), 0 + colors_size*flr(i*0.25), colors_size, colors_size, i)
-		end
-		return
-	end
+-- Example of how to implement the fade palette tool in your project.
+-- "fadetable" is a multidimensional table with 32 entries (one for each color in the Pictron palette).
+-- Each entry contains a series of fade steps, determined by the "fade_length" (16 steps in this example).
+-- These steps transition each color from its original state to the target color.
+function draw_fade_palette()	
+	-- Updates each color in the palette with the corresponding faded color from "fadetable".
+	-- The first index specifies the color to change, and the second index is the current fade step to render.
 	for c=0,31 do
-		if flr(j+1)>=fade_length then
-			pal(c, 0, 0)--0 = targetcolor
-		else
-			pal(c, fadetable[c+1][flr(j+1)], 0)
-		end
+		pal(c, fadetable[c+1][flr(step+1)], 0)
 	end
+	
+	-- Here is where the "faded" palette should be used for your desired purpose.
+	-- In this example, the palette is rendered on screen as a preview for presenting the tool.
 	draw_pallete({ x = 480-colors_size*4-7, y = 7 })
+	
+	-- Resets the palette changes to the default.
+	pal()
+end
+
+function draw_target()
+	if target_color == 7 then
+		pal(7, 0, 0)
+	end
+	spr(1, target_pos.x, target_pos.y) -- visual target color
 	pal()
 end
 
@@ -259,12 +200,58 @@ function draw_instructions()
 	print("Use the arrow keys to scroll through it.", 480/2 - lenght2/2, 130, 7)
 	print("Press \142 to start color fade animation", 480/2 - lenght/2, 180, 7)
 end
+
+function rectfill2(_x,_y,_w,_h,_c)
+	rectfill(_x,_y,_x+max(_w-1,0),_y+max(_h-1,0),_c)
+end
+:: update.lua
+--[[pod_format="raw",created="2024-12-22 17:52:03",modified="2024-12-22 18:38:27",revision=99]]
+
+function update_game()
+	t+=1
+	
+	if btnp(4) then
+		anim = not anim
+		step = 0
+		t = 0
+	end
+	if btnp(0) and step > 0 then
+		step-=1
+	end
+	if btnp (1) and step < fade_length - 2 then
+		step+=1
+	end
+	if anim then
+		step = sin(t/144 - math.pi/2)*(fade_length-1)/2 + (fade_length-1)/2
+	else
+		mouse_tracker()
+	end
+end
+
+function 	mouse_tracker()
+   local mx, my, mb =	mouse()
+	
+	if mx > colors_size*4 or my > colors_size*8 then return end
+	
+	if mb == 1 then
+		local x_pos, y_pos = 0
+		for i=0,31 do
+			if mx >= (colors_size*(i-4*flr(i*0.25)))+7 and mx < (colors_size*(i-4*flr(i*0.25) + 1))+7 and my >= colors_size*flr(i*0.25) and my < (colors_size*(flr(i*0.25) + 1))+7 then --and mx < colors_size*(i+1-4*flr(i+1*0.25))
+				target_pos = { x = colors_size*(i-4*flr(i*0.25)) + 7 , y = colors_size*flr(i*0.25)+7}
+				target_color = i
+				create_fadepalette()
+				return
+			end
+		end
+	end
+end
 :: .info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0yMCAxNzozMDo0MiIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
-IzYiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImRyYXdzLmx1YSMyMSIsd29ya3NwYWNl
-X2luZGV4PTF9LHtsb2NhdGlvbj0idWkubHVhIzgiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRp
-b249ImdmeC8wLmdmeCIsd29ya3NwYWNlX2luZGV4PTJ9LHtsb2NhdGlvbj0ibWFwLzAubWFwIix3
-b3Jrc3BhY2VfaW5kZXg9M30se2xvY2F0aW9uPSJzZngvMC5zZngiLHdvcmtzcGFjZV9pbmRleD00
-fX1dXQ==
+Mi0yMiAxODozODoyOCIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
+IzQiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImZhZGUubHVhIzI1Iix3b3Jrc3BhY2Vf
+aW5kZXg9MX0se2xvY2F0aW9uPSJ1aS5sdWEjMjQiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRp
+b249InVwZGF0ZS5sdWEjMTciLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImRyYXdzLmx1
+YSMxIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJnZngvMC5nZngiLHdvcmtzcGFjZV9p
+bmRleD0yfSx7bG9jYXRpb249Im1hcC8wLm1hcCIsd29ya3NwYWNlX2luZGV4PTN9LHtsb2NhdGlv
+bj0ic2Z4LzAuc2Z4Iix3b3Jrc3BhY2VfaW5kZXg9NH19XV0=
 :: [eoc]
