@@ -4,34 +4,34 @@ version 2
 :: gfx/
 :: gfx/0.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0yMiAxODozODoyNyIscmV2aXNpb249MTE2M11dbHo0ALgAAABaMQAA8yF7WzBdPXtibXA9cHh1
+Mi0yMyAxNTo1NjozMCIscmV2aXNpb249MTE2Nl1dbHo0ALgAAABaMQAA8yF7WzBdPXtibXA9cHh1
 AEMgEBAE8FYHEAfAF9AXwAcQB-BWLGZsYWdzPTAscGFuX3gIAMd5PTAsem9vbT04fSw_AM8gIASn
 kPcGkMfwDDcDAARUF-D-MRcNAA4DABDHPwAbp3QAQy0xLjJ3ADIxLjR5ADs1fSy3AB-wqgAMDzEA
 ----------------------------------------------------------------h1BtPTh9fQ==
 :: gfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0yMiAxODozODoyOCJdXQ==
+Mi0yMyAxNTo1NjozMCJdXQ==
 :: map/
 :: map/0.map
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0yMiAxODozODoyNyIscmV2aXNpb249MTE1OV1dbHo0AHkAAABlEAAA8Ah7e2JtcD11c2VyZGF0
+Mi0yMyAxNTo1NjozMCIscmV2aXNpb249MTE2Ml1dbHo0AHkAAABlEAAA8Ah7e2JtcD11c2VyZGF0
 YSgiaTE2IiwzMgMAXyIwMDAyBAD--------------------48Q0iKSxoaWRkZW49ZmFsc2UscGFu
 X3g9LTE5Ljc1DQDyA3k9LTEwNi41LHRpbGVfaD0xNgoAEHcKALB6b29tPTAuMjV9fQ==
 :: map/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0yMiAxODozODoyOCJdXQ==
+Mi0yMyAxNTo1NjozMCJdXQ==
 :: sfx/
 :: sfx/0.sfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0yMiAxODozODoyNyIscmV2aXNpb249MTEyMV1dbHo0AKAAAAALCgAA-zBweHUAAygAAAQABA9A
+Mi0yMyAxNTo1NjozMCIscmV2aXNpb249MTEyNF1dbHo0AKAAAAALCgAA-zBweHUAAygAAAQABA9A
 EAIOAAGgASACoA4ADxAADfDKAQIDQA8PkAQFBgdADJAICQoLQAyQDwwPDQ8ODEAM8P8BAOv-J6oB
 EAYPIBABIAEgAfAAAhACDhABIA8hIAEwD0Dwww8oD--wxg-4Cg--D4AP9w8NAfAJARAGDjAA----
 --_9H-8BAKzPyA9AAA8QQP--sPD-AQD-6lD-----KQ==
 :: sfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0yMiAxODozODoyOCJdXQ==
+Mi0yMyAxNTo1NjozMCJdXQ==
 :: draws.lua
---[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-22 18:38:27",revision=1580]]
+--[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-23 15:56:30",revision=1586]]
 function draw_game()
 	cls(0)
 	draw_pallete()
@@ -40,7 +40,7 @@ function draw_game()
 	draw_instructions()
 end
 :: fade.lua
---[[pod_format="raw",created="2024-12-22 17:47:48",modified="2024-12-22 18:38:27",revision=107]]
+--[[pod_format="raw",created="2024-12-22 17:47:48",modified="2024-12-23 15:56:30",revision=112]]
 
 -- Creates a fade palette using two parameters.
 -- target_color: The target color to fade into. Set it to any color from the Pictron palette (0..31). 
@@ -73,9 +73,9 @@ function build_fade_to_target_color(target_color, steps)
 end
 
 function find_closest_color(r, g, b)
-	local error = -1 -- smalles error
+	local error = -1 -- smallest error
 	local c = -1 -- closest color
-	local color_range = 32 -- palette lenght
+	local color_range = 32 -- palette length
 	
 	for i=0,color_range - 1 do
 		local d0, d1, d2, distance
@@ -93,7 +93,7 @@ function find_closest_color(r, g, b)
 	return c
 end
 :: main.lua
---[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-22 18:38:27",revision=1443]]
+--[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-23 15:56:30",revision=1448]]
 include "update.lua"
 include "draws.lua"
 include "fade.lua"
@@ -157,7 +157,7 @@ function _draw()
 	draw_game()
 end
 :: ui.lua
---[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-22 18:38:27",revision=1088]]
+--[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-23 15:56:30",revision=1094]]
 function draw_pallete(start_pos)
 	start_pos = start_pos or { x = 7, y = 7}
 	for i=0,31 do
@@ -205,7 +205,7 @@ function rectfill2(_x,_y,_w,_h,_c)
 	rectfill(_x,_y,_x+max(_w-1,0),_y+max(_h-1,0),_c)
 end
 :: update.lua
---[[pod_format="raw",created="2024-12-22 17:52:03",modified="2024-12-22 18:38:27",revision=99]]
+--[[pod_format="raw",created="2024-12-22 17:52:03",modified="2024-12-23 15:56:30",revision=106]]
 
 function update_game()
 	t+=1
@@ -247,11 +247,11 @@ function 	mouse_tracker()
 end
 :: .info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0yMiAxODozODoyOCIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
-IzQiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImZhZGUubHVhIzI1Iix3b3Jrc3BhY2Vf
-aW5kZXg9MX0se2xvY2F0aW9uPSJ1aS5sdWEjMjQiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRp
-b249InVwZGF0ZS5sdWEjMTciLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImRyYXdzLmx1
-YSMxIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJnZngvMC5nZngiLHdvcmtzcGFjZV9p
-bmRleD0yfSx7bG9jYXRpb249Im1hcC8wLm1hcCIsd29ya3NwYWNlX2luZGV4PTN9LHtsb2NhdGlv
-bj0ic2Z4LzAuc2Z4Iix3b3Jrc3BhY2VfaW5kZXg9NH19XV0=
+Mi0yMyAxNTo1NjozMCIscnVudGltZT0xMix3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
+IzkiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImZhZGUubHVhIzM3Iix3b3Jrc3BhY2Vf
+aW5kZXg9MX0se2xvY2F0aW9uPSJ1aS5sdWEjOCIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlv
+bj0idXBkYXRlLmx1YSMxMCIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iZHJhd3MubHVh
+IzQiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImdmeC8wLmdmeCIsd29ya3NwYWNlX2lu
+ZGV4PTJ9LHtsb2NhdGlvbj0ibWFwLzAubWFwIix3b3Jrc3BhY2VfaW5kZXg9M30se2xvY2F0aW9u
+PSJzZngvMC5zZngiLHdvcmtzcGFjZV9pbmRleD00fX1dXQ==
 :: [eoc]
