@@ -2,45 +2,19 @@ picotron cartridge // www.picotron.net
 version 2
 
 :: gfx/
-:: gfx/0.gfx
-b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0yMyAxNTo1NjozMCIscmV2aXNpb249MTE2Nl1dbHo0ALgAAABaMQAA8yF7WzBdPXtibXA9cHh1
-AEMgEBAE8FYHEAfAF9AXwAcQB-BWLGZsYWdzPTAscGFuX3gIAMd5PTAsem9vbT04fSw_AM8gIASn
-kPcGkMfwDDcDAARUF-D-MRcNAA4DABDHPwAbp3QAQy0xLjJ3ADIxLjR5ADs1fSy3AB-wqgAMDzEA
-----------------------------------------------------------------h1BtPTh9fQ==
-:: gfx/.info.pod
-b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0yMyAxODoyODo1OSJdXQ==
 :: map/
-:: map/0.map
-b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0yMyAxNTo1NjozMCIscmV2aXNpb249MTE2Ml1dbHo0AHkAAABlEAAA8Ah7e2JtcD11c2VyZGF0
-YSgiaTE2IiwzMgMAXyIwMDAyBAD--------------------48Q0iKSxoaWRkZW49ZmFsc2UscGFu
-X3g9LTE5Ljc1DQDyA3k9LTEwNi41LHRpbGVfaD0xNgoAEHcKALB6b29tPTAuMjV9fQ==
-:: map/.info.pod
-b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0yMyAxODoyODo1OSJdXQ==
 :: sfx/
-:: sfx/0.sfx
-b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
-Mi0yMyAxNTo1NjozMCIscmV2aXNpb249MTEyNF1dbHo0AKAAAAALCgAA-zBweHUAAygAAAQABA9A
-EAIOAAGgASACoA4ADxAADfDKAQIDQA8PkAQFBgdADJAICQoLQAyQDwwPDQ8ODEAM8P8BAOv-J6oB
-EAYPIBABIAEgAfAAAhACDhABIA8hIAEwD0Dwww8oD--wxg-4Cg--D4AP9w8NAfAJARAGDjAA----
---_9H-8BAKzPyA9AAA8QQP--sPD-AQD-6lD-----KQ==
-:: sfx/.info.pod
-b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ1OjAyIixtb2RpZmllZD0iMjAyNC0x
-Mi0yMyAxODoyODo1OSJdXQ==
 :: draws.lua
---[[pod_format="raw",created="2024-12-17 14:50:48",modified="2024-12-23 15:56:30",revision=1586]]
+--[[pod_format="raw",created="2024-12-17 14:50:48",modified="2026-01-21 14:42:43",revision=1587]]
 function draw_game()
 	cls(0)
 	draw_pallete()
 	draw_fade_palette()
 	draw_target()
-	draw_instructions()
+	draw_instructions(message)
 end
 :: fade.lua
---[[pod_format="raw",created="2024-12-22 17:47:48",modified="2024-12-23 15:56:30",revision=112]]
+--[[pod_format="raw",created="2024-12-22 17:47:48",modified="2026-01-21 14:43:22",revision=153]]
 
 -- Creates a fade palette using two parameters.
 -- target_color: The target color to fade into. Set it to any color from the Pictron palette (0..31). 
@@ -92,8 +66,23 @@ function find_closest_color(r, g, b)
 	end
 	return c
 end
+
+function save_fade_pallete()
+	local ud = get_spr(2)
+	set_draw_target(ud)
+	
+	for i=0,31 do
+		for row = 32,32+fade_length-1 do
+			local col = fadetable[i+1][row-31]
+			pset(i,row,col)
+		end
+	end
+	set_draw_target()
+	set_clipboard(pod(ud, 0x7, {pod_type="image"}))
+	message = "Pallete saved on clipboard"
+end
 :: main.lua
---[[pod_format="raw",created="2024-12-17 14:44:28",modified="2024-12-23 15:56:30",revision=1448]]
+--[[pod_format="raw",created="2024-12-17 14:44:28",modified="2026-01-21 14:42:49",revision=1460]]
 include "update.lua"
 include "draws.lua"
 include "fade.lua"
@@ -103,6 +92,8 @@ function _init()
 	target_color = 0
 	colors_size = 32
 	fade_length = 16
+	
+	message = ""
 	
 	t = 0
 	step = 0
@@ -155,9 +146,32 @@ end
 
 function _draw()
 	draw_game()
+	cursor(7)
+	foreach(deug, print)
+end
+
+-- two type of use
+-- simple debug(msg) msg = string,number,nil,boolean E.g. debug("hello") prints hello
+-- multiple debug({string, nil, number, bolean }) E.g. debug({"hello", true, 24}) print hellotrue24
+deug = {} -- see this
+
+function debug(msg, overlaping)-- cuando es table solo la imprime si es mensaje multiple
+	overlaping = overlaping or false
+	local max_lenght = 21
+	if overlaping or #deug == max_lenght then deug = {} end
+
+	if type(msg) == "table" then
+		local message = ""
+		for i=1,#msg == 1 and 2 or #msg do
+			message = message..tostr(msg[i]).." "
+		end
+		add(deug, message)
+	else
+		add(deug, tostr(msg))
+	end
 end
 :: ui.lua
---[[pod_format="raw",created="2024-12-18 14:40:00",modified="2024-12-23 15:56:30",revision=1094]]
+--[[pod_format="raw",created="2024-12-18 14:40:00",modified="2026-01-21 14:48:02",revision=1142]]
 function draw_pallete(start_pos)
 	start_pos = start_pos or { x = 7, y = 7}
 	for i=0,31 do
@@ -192,20 +206,26 @@ function draw_target()
 	pal()
 end
 
-function draw_instructions()
-	local lenght = print("Press \142 to start color fade animation", 0, 270)
+function draw_instructions(message)
+	local y = 40
+	local spaicing = 50
+	local lenght = print("Press \143 to start color fade animation", 0, 270)
 	local lenght2 = print("Use the arrow keys to scroll through it.", 0, 270)
 	local lenght3 = print("Click on a color to set the fade start.", 0, 270)
-	print("Click on a color to set the fade start.", 480/2 - lenght3/2 , 80, 7)
-	print("Use the arrow keys to scroll through it.", 480/2 - lenght2/2, 130, 7)
-	print("Press \142 to start color fade animation", 480/2 - lenght/2, 180, 7)
+	local lenght4 = print("Press \151 to save fade pallete", 0, 270)
+	local lenght5 = print(message,0,270)
+	print("Click on a color to set the fade start.", 480/2 - lenght3/2 , y, 7)
+	print("Use the arrow keys to scroll through it.", 480/2 - lenght2/2, y+spaicing, 7)
+	print("Press \142 to start color fade animation", 480/2 - lenght/2, y+spaicing*2, 7)
+	print("Press \151 to save fade pallete", 480/2-lenght4/2, y+spaicing*3, 7)
+	print(message, 480/2-lenght5/2, y+spaicing*4, t%48>=16 and 27 or 0)
 end
 
 function rectfill2(_x,_y,_w,_h,_c)
 	rectfill(_x,_y,_x+max(_w-1,0),_y+max(_h-1,0),_c)
 end
 :: update.lua
---[[pod_format="raw",created="2024-12-22 17:52:03",modified="2024-12-23 15:56:30",revision=106]]
+--[[pod_format="raw",created="2024-12-22 17:52:03",modified="2026-01-21 14:27:46",revision=113]]
 
 function update_game()
 	t+=1
@@ -214,6 +234,9 @@ function update_game()
 		anim = not anim
 		step = 0
 		t = 0
+	end
+	if btnp(5) then
+		save_fade_pallete()
 	end
 	if btnp(0) and step > 0 then
 		step-=1
@@ -246,23 +269,32 @@ function 	mouse_tracker()
 	end
 end
 :: .info.pod
-b64$LS1bW3BvZCx3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVhIzkiLHdvcmtzcGFjZV9p
-bmRleD0xfSx7bG9jYXRpb249ImZhZGUubHVhIzM3Iix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0
-aW9uPSJ1aS5sdWEjOCIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0idXBkYXRlLmx1YSMx
-MCIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iZHJhd3MubHVhIzQiLHdvcmtzcGFjZV9p
-bmRleD0xfSx7bG9jYXRpb249ImdmeC8wLmdmeCIsd29ya3NwYWNlX2luZGV4PTJ9LHtsb2NhdGlv
-bj0ibWFwLzAubWFwIix3b3Jrc3BhY2VfaW5kZXg9M30se2xvY2F0aW9uPSJzZngvMC5zZngiLHdv
-cmtzcGFjZV9pbmRleD00fX0sY3JlYXRlZD0iMjAyNC0xMi0xNyAxNDo0NTowMiIscnVudGltZT0x
-MixhdXRob3I9IkJpdHdhcmUgSW50ZXJhY3RpdmUiLG1vZGlmaWVkPSIyMDI0LTEyLTIzIDE4OjI4
-OjU5Iix2ZXJzaW9uPSIxLjAiLHRpdGxlPSJQYWxldHRlRmFkZSBUb29sIixpY29uPXVzZXJkYXRh
-KCJ1OCIsMTYsMTYsIjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEwMTAxMDEwMTAx
-MDEwMTAxMDEwMTAxMDEwMTAxMDEwMTA3MDcwNzA3MDcwNzA3MDcwNzA3MDcwNzA3MDcwMTAxMDcw
-ZDBkMGQwZDBkMGQwZDBkMGQwZDBkMGQwNzAxMDEwNzBkMGQwNjA2MDYwZDBkMDYwNjA2MGQwZDA3
-MDEwMTA3MGQwZDA2MGQwNjBkMGQwNjBkMGQwZDBkMDcwMTAxMDcwZDBkMDYwNjBkMGQwZDA2MDYw
-ZDBkMGQwNzAxMDEwNzBkMGQwNjBkMGQwZDBkMDYwZDBkMGQwZDA3MDEwMTA3MGQwZDBkMGQwZDBk
-MGQwZDBkMGQwZDBkMDcwMTAxMDcwNzA3MDcwNzA3MDcwNzA3MDcwNzA3MDcwNzAxMDEwNzA3MDYw
-NjA2MDYwNjA2MDYwNjA2MDcwNzA3MDEwMTA3MDcwNjA2MDYwNjA2MDYwNjA2MDYwNzA3MDYwMTAx
-MDcwNzA3MDcwNzA3MDcwNzA3MDcwNzA3MDYwMTAwMDEwNjA2MDYwNjA2MDYwNjA2MDYwNjA2MDYw
-MTAwMDAwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
-MDAwMDAwMDAwMDAwIiksbm90ZXM9IiJdXQ==
+--[[pod,author="Bitware Interactive",created="2024-12-17 14:45:02",icon=userdata("u8",16,16,"00000000000000000000000000000000010101010101010101010101010101010107070707070707070707070707070101070d0d0d0d0d0d0d0d0d0d0d0d070101070d0d0606060d0d0606060d0d070101070d0d060d060d0d060d0d0d0d070101070d0d06060d0d0d06060d0d0d070101070d0d060d0d0d0d060d0d0d0d070101070d0d0d0d0d0d0d0d0d0d0d0d070101070707070707070707070707070701010707060606060606060606070707010107070606060606060606060707060101070707070707070707070707060100010606060606060606060606060100000101010101010101010101010100000000000000000000000000000000000000"),lowcol_icon=true,modified="2026-01-21 14:48:02",notes="",runtime=24,title="PaletteFade Tool",version="1.0",workspaces={{location="main.lua#11",workspace_index=1},{location="fade.lua#65",workspace_index=1},{location="ui.lua#47",workspace_index=1},{location="update.lua#11",workspace_index=1},{location="draws.lua#6",workspace_index=1},{location="gfx/0.gfx#3",workspace_index=2},{location="map/0.map",workspace_index=3},{location="sfx/0.sfx",workspace_index=4}}]]
+:: gfx/.info.pod
+--[[pod,created="2024-12-17 14:45:02",modified="2026-01-21 14:48:02"]]
+:: gfx/0.gfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNi0w
+MS0yMSAxNDo0MToxNiIscmV2aXNpb249MTE4NF1dbHo0AGkBAAA3MgAA8yF7WzBdPXtibXA9cHh1
+AEMgEBAE8FYHEAfAF9AXwAcQB-BWLGZsYWdzPTAscGFuX3gIAMd5PTAsem9vbT04fSw_AM8gIASn
+kPcGkMfwDDcDAARUF-D-MRcNAA4DABDHPwAbp3QAQy0xLjJ3ADIxLjR5ABk1eQDyf0BABAABAgME
+BQYHCAkKCwwNDg8PDxAPEQ8SDxMPFA8VDxYPFw8YDxkPGg8bDxwPHQ8eDx8PIP8AD-Ew8jDzMPQw
+9TD2MPcw_DD5MPow_zD8MP0w-jD-DzD-EDD-ETD-EjD-EzD-FDD-FTD-FjD-FzD-GDD-GTD-GjD-
+GzD-HDD-HTD-HjD-HzD-IDD-AP8BABy3xgA3NC42AQAUN9IAAtAAHDPQACvw-wEAHwBQAHgAJwIf
+8BoCDA8xAP--------------------------------------------------------------81Bt
+PTh9fQ==
+:: map/.info.pod
+--[[pod,created="2024-12-17 14:45:02",modified="2026-01-21 14:48:02"]]
+:: map/0.map
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNi0w
+MS0yMSAxNDo0NzozNyIscmV2aXNpb249MTE2M11dbHo0AFoAAABdAAAA8SF7e2JtcD1weHUATIAg
+IAD-AAD---8DLGhpZGRlbj1mYWxzZSxwYW5feD0tMTkuNzUNAPIDeT0tMTA2LjUsdGlsZV9oPTE2
+CgAQdwoAsHpvb209MC4yNX19
+:: sfx/.info.pod
+--[[pod,created="2024-12-17 14:45:02",modified="2026-01-21 14:48:02"]]
+:: sfx/0.sfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEyLTE3IDE0OjQ0OjI4Iixtb2RpZmllZD0iMjAyNC0x
+Mi0yMyAxNTo1NjozMCIscmV2aXNpb249MTEyNF1dbHo0AKAAAAALCgAA-zBweHUAAygAAAQABA9A
+EAIOAAGgASACoA4ADxAADfDKAQIDQA8PkAQFBgdADJAICQoLQAyQDwwPDQ8ODEAM8P8BAOv-J6oB
+EAYPIBABIAEgAfAAAhACDhABIA8hIAEwD0Dwww8oD--wxg-4Cg--D4AP9w8NAfAJARAGDjAA----
+--_9H-8BAKzPyA9AAA8QQP--sPD-AQD-6lD-----KQ==
 :: [eoc]
