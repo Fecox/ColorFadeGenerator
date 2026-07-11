@@ -67,7 +67,9 @@ Or download the latest release from itch.io.
 
 ## Screenshots
 
-*(Add screenshots or GIFs here.)*
+<p align="center">
+  <img src="images/palettefade_preview.gif" width="700">
+</p>
 
 ---
 
@@ -75,7 +77,7 @@ Or download the latest release from itch.io.
 
 You can download the latest version on itch.io:
 
-**https://fecox.itch.io/palettefade**
+**https://bitware-interactive.itch.io/palettefade-tool**
 
 ---
 
